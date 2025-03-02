@@ -5,17 +5,11 @@
 
 bool isSimpleNumber(int number);
 
-int main() {
-    int number;
-    std::cout << "Enter a number:  ";
-
+int main(int argc, char* argv[]) {
     // checking Enter
     while (true) {
-        std::string input;
-        std::cin >> input;
-
         try {
-            number = std::stoi(input); // String to number
+            number = std::stoi(argv); // String to number
             break; // Если преобразование прошло успешно, выходим из цикла
         } catch (const std::invalid_argument&) {
             std::cout << "Error! Invalid input. Repeat enter a number: ";
