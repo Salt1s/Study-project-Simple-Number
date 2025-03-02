@@ -1,0 +1,33 @@
+stages:
+  - RunMake
+  - RunTest
+  - RunPackage
+
+RunMake:
+  stage: RunMake
+  script:
+    - make
+    - mkdir -p artifacts
+    - cp simple_num artifacts/
+  artifacts:
+    paths:
+      - artifacts/
+
+RunTest:
+  stage: RunTest
+  script:
+    - chmod +x artifacts/simple_num
+    - ./artifacts/simple_num 10 | grep "Number of Fibonacchi #10 = 55"
+    - ./artifacts/simple_num 1 | grep "Number of Fibonacchi #1 = 1"
+    - ./artifacts/simple_num 99 | grep "Number of Fibonacchi #99 = 218922995834555169026"
+
+RunPackage:
+  stage: RunPackage
+  script:
+    - mkdir -p artifacts/deb
+    - mkdir -p artifacts/deb/usr/local/bin
+    - cp artifacts/simple_num artifacts/deb/usr/local/bin/
+    - dpkg-deb --build artifacts/deb simple_num.deb
+  artifacts:
+    paths:
+      - simple_num.deb
