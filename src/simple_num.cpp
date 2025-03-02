@@ -13,12 +13,24 @@ int main() {
         std::cin >> input;
         
         bool isInteger = true;
+
+        if (input[0] == '-' && input.size()>1) {
+            for (size_t i =1; i < input.size(); i++) {
+                //checking every char in string 0-9 and first minus
+                if (!isdigit(input[i])) { 
+                    isInteger = false;
+                    break;
+                }
+            }
+        }
+        else {
         for (char c : input) {
             //checking every char in string 0-9 and first minus
-            if (!isdigit(c) && !(c == '-' && &c == &input[0])) { 
+            if (!isdigit(c)) { 
                 isInteger = false;
                 break;
             }
+        }
         }
         
         if (!isInteger) {
