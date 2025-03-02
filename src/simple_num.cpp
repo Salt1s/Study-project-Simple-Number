@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
     // checking Enter
     while (true) {
         try {
-            number = std::stoi(argv); // String to number
+            number = std::atoi(argv); // String to number
             break; // Если преобразование прошло успешно, выходим из цикла
         } catch (const std::invalid_argument&) {
             std::cout << "Error! Invalid input. Repeat enter a number: ";
