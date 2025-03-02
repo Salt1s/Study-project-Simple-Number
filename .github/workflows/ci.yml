@@ -97,7 +97,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .  # Используем текущую директорию как контекст
-          file: .../src/Dockerfile
+          file: ./src/Dockerfile
           push: true
           tags: salt1s/simple_num:latest
 
