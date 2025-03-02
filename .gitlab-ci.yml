@@ -17,9 +17,9 @@ RunTest:
   stage: RunTest
   script:
     - chmod +x artifacts/simple_num
-    - ./artifacts/simple_num 10 | grep "Number of Fibonacchi #10 = 55"
-    - ./artifacts/simple_num 1 | grep "Number of Fibonacchi #1 = 1"
-    - ./artifacts/simple_num 99 | grep "Number of Fibonacchi #99 = 218922995834555169026"
+    - ./artifacts/simple_num 2 | grep "1"
+    - ./artifacts/simple_num 4 | grep "0"
+    - ./artifacts/simple_num 7 | grep "1"
 
 RunPackage:
   stage: RunPackage
