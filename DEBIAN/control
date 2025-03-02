@@ -1,0 +1,8 @@
+Package: simplenumbercheck
+Version: 1.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Maintainer: Alex myemail@gmail.com
+Description: Simple number checker program
+Depends: g++, make

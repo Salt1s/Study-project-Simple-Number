@@ -1,0 +1,74 @@
+name: CI Pipeline
+on:
+  push:
+    branches:
+      - lab2
+jobs:
+  RunMake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y build-essential dpkg
+
+      - name: Run Make
+        run: |
+          cd src
+          make || { echo "Make failed"; exit 1; }
+          ls -l
+          mkdir -p ../artifacts
+          cp ../usr/bin/simple_num ../artifacts/ || { echo "Failed to copy simple_num to artifacts"; exit 1; }
+
+      - name: Upload Artifact (Binary)
+        uses: actions/upload-artifact@v4
+        with:
+          name: simple_num-binary
+          path: artifacts/
+  RunTest:
+    needs: RunMake
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: simple_num-binary
+          path: artifacts/
+      - name: Run Tests
+        run: |
+          chmod +x artifacts/simple_num
+          echo "Running simple_num with argument -5"
+          ./artifacts/simple_num -5
+          echo "Running simple_num with argument 4"
+          ./artifacts/simple_num 4
+          echo "Running simple_num with argument 7"
+          ./artifacts/simple_num 7
+  RunPackage:
+    needs: RunTest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: simple_num-binary
+          path: artifacts/
+
+      - name: Create Debian Package
+        run: |
+          mkdir -p artifacts/deb/usr/local/bin
+          mkdir -p artifacts/deb/DEBIAN
+          cp DEBIAN/control artifacts/deb/DEBIAN/
+          cp artifacts/simple_num artifacts/deb/usr/local/bin/
+          dpkg-deb --build artifacts/deb simple_num.deb
+      - name: Upload Debian Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: simple_num-deb
+          path: simple_num.deb
+
