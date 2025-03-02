@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN apt-get update && apt-get install -y dpkg g++ build essential
+RUN apt-get update && apt-get install -y dpkg g++ build-essential
 
 COPY simple_num.deb /tmp/simple_num.deb
 
