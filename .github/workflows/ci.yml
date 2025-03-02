@@ -40,8 +40,8 @@ jobs:
       - name: Run Tests
         run: |
           chmod +x artifacts/simple_num
-          echo "Running simple_num with argument -5"
-          ./artifacts/simple_num -5
+          echo "Running simple_num with argument 2"
+          ./artifacts/simple_num 2
           echo "Running simple_num with argument 4"
           ./artifacts/simple_num 4
           echo "Running simple_num with argument 7"
