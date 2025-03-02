@@ -97,11 +97,11 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .  # Используем текущую директорию как контекст
-          file: ./Dockerfile
+          file: .../src/Dockerfile
           push: true
-          tags: birthtree/simple_num:latest
+          tags: salt1s/simple_num:latest
 
       - name: Run Container
         run: |
-          docker run --rm birthtree/simple_num 10
+          docker run --rm salt1s/simple_num 10
 
