@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: simple-num-deployment
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: simple-num
+    template:
+        metadata:
+            labels:
+                app: simple-num
+        spec:
+            containers:
+                -   name: simple-num
+                    image: salt1s/simple_num:latest
+                    ports:
+                        -   containerPort: 8080
